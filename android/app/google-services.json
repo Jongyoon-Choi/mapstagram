@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "592819346585",
+    "project_id": "mapstagram-b7a01",
+    "storage_bucket": "mapstagram-b7a01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592819346585:android:75df07348b0945d4c3ec08",
+        "android_client_info": {
+          "package_name": "com.mapstagram.mapstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592819346585-kjek3ihkfqt86g9s2l9vc3ult7dnr0sh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mapstagram.mapstagram",
+            "certificate_hash": "305a21d41cfd056dc3b8e3bb2351987913627dc6"
+          }
+        },
+        {
+          "client_id": "592819346585-96us9u9fq21mucbgf17t7mprpe8l7noe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkRr51Jj-bvVUsy3P9DS1qlbpjOT1ZmYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592819346585-96us9u9fq21mucbgf17t7mprpe8l7noe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "592819346585-r90og7rhbffvuog53vhr62f5bgsusia1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mapstagram.mapstagram"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
