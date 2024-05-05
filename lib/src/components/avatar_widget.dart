@@ -25,11 +25,11 @@ class AvartarWidget extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
-            Colors.purple,
-            Colors.orange,
+            Color(0xff0099FF),
+            Color(0xff00FFAA),
           ],
         ),
         shape: BoxShape.circle,

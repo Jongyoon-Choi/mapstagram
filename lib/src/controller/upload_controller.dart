@@ -38,7 +38,8 @@ class UploadController extends GetxController {
   }
 
   void _loadPhotos() async {
-    final PermissionState result = await PhotoManager.requestPermissionExtend();
+    var result = await PhotoManager.requestPermissionExtend();
+    print(result);
     if (result.isAuth) {
       albums = await PhotoManager.getAssetPathList(
         type: RequestType.image,
