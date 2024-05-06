@@ -28,7 +28,7 @@ class AvartarWidget extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xff0099FF),
+            Color(0xff3300FF),
             Color(0xff00FFAA),
           ],
         ),

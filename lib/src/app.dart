@@ -46,30 +46,24 @@ class App extends GetView<BottomNavController> {
                 activeIcon: ImageData(IconsPath.homeOn),
                 label: 'home',
               ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.searchOff),
-                activeIcon: ImageData(IconsPath.searchOn),
-                label: 'home',
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.map_outlined, color: Colors.black),
+                activeIcon: Icon(Icons.map, color: Colors.black),
+                label: 'map',
               ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.uploadIcon),
-                label: 'home',
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.add_box_outlined, color: Colors.black),
+                label: 'add',
               ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.activeOff),
-                activeIcon: ImageData(IconsPath.activeOn),
-                label: 'home',
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border, color: Colors.black),
+                activeIcon: Icon(Icons.favorite, color: Colors.black),
+                label: '',
               ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
-                  ),
-                ),
-                label: 'home',
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline, color: Colors.black),
+                activeIcon: Icon(Icons.person, color: Colors.black),
+                label: 'profile',
               ),
             ],
           ),
