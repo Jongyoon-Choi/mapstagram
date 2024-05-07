@@ -49,6 +49,7 @@ dependencies:
   photofilters: ^3.0.1
   uuid: ^4.3.3
   timeago: ^3.6.1
+  flutter_naver_map: ^1.2.2
 
 dev_dependencies:
   flutter_test:

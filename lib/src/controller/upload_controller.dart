@@ -6,6 +6,7 @@ import 'package:mapstagram/src/components/message_popup.dart';
 import 'package:mapstagram/src/controller/auth_controller.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/upload/upload_description.dart';
+import 'package:mapstagram/src/pages/upload/upload_place.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
 import 'package:mapstagram/src/utils/data_util.dart';
 import 'package:get/get.dart';
@@ -98,8 +99,12 @@ class UploadController extends GetxController {
     );
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       filteredImage = imagefile['image_filtered'];
-      Get.to(() => const UploadDescription());
+      Get.to(() => const UploadPlace());
     }
+  }
+
+  void gotoDescription() async {
+    Get.to(() => const UploadDescription());
   }
 
   void unfocusKeyboard() {

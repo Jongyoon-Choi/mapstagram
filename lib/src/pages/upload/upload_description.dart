@@ -40,6 +40,27 @@ class UploadDescription extends GetView<UploadController> {
     );
   }
 
+  Widget _rating() {
+    return const Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('장소명'),
+          Row(
+            children: [
+              Icon(Icons.star_border, color: Colors.blue, size: 22),
+              Icon(Icons.star_border, color: Colors.blue, size: 22),
+              Icon(Icons.star_border, color: Colors.blue, size: 22),
+              Icon(Icons.star_border, color: Colors.blue, size: 22),
+              Icon(Icons.star_border, color: Colors.blue, size: 22),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget infoOnt(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
@@ -143,11 +164,14 @@ class UploadDescription extends GetView<UploadController> {
                   children: [
                     _description(),
                     line,
+                    _rating(),
+                    line,
                     infoOnt('사람 태그하기'),
                     line,
                     infoOnt('위치 추가'),
                     line,
                     infoOnt('다른 미디어에도 게시'),
+                    line,
                     snsInfo(),
                   ],
                 ),

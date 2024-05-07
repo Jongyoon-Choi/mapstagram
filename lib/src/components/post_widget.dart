@@ -37,12 +37,6 @@ class PostWidget extends StatelessWidget {
     );
   }
 
-  Widget _image() {
-    return CachedNetworkImage(
-      imageUrl: post.thumbnail!,
-    );
-  }
-
   Widget _infoCount() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -74,6 +68,33 @@ class PostWidget extends StatelessWidget {
           ImageData(
             IconsPath.bookMarkOffIcon,
             width: 50,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _image() {
+    return CachedNetworkImage(
+      imageUrl: post.thumbnail!,
+    );
+  }
+
+  Widget _place() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('숭실 대학교'),
+          Row(
+            children: [
+              Icon(Icons.star, color: Colors.blue, size: 16),
+              Icon(Icons.star, color: Colors.blue, size: 16),
+              Icon(Icons.star, color: Colors.blue, size: 16),
+              Icon(Icons.star_half, color: Colors.blue, size: 16),
+              Icon(Icons.star_border, color: Colors.blue, size: 16),
+            ],
           ),
         ],
       ),
@@ -140,6 +161,8 @@ class PostWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _header(),
+          const SizedBox(height: 15),
+          _place(),
           const SizedBox(height: 15),
           _image(),
           const SizedBox(height: 15),
