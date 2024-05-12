@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mapstagram/src/pages/active_history.dart';
+// import 'package:mapstagram/src/pages/active_history.dart';
 import 'package:mapstagram/src/pages/home.dart';
+import 'package:mapstagram/src/pages/map_search.dart';
 import 'package:mapstagram/src/pages/mypage.dart';
 import 'package:mapstagram/src/pages/search.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,14 @@ class App extends GetView<BottomNavController> {
                 },
               ),
               Container(),
-              const ActiveHistory(),
+              Navigator(
+                key: controller.mapSearchPageNavigationKey,
+                onGenerateRoute: (routeSettings) {
+                  return MaterialPageRoute(
+                    builder: (context) => const MapSearch(),
+                  );
+                },
+              ),
               const MyPage(),
             ],
           ),
@@ -47,18 +55,18 @@ class App extends GetView<BottomNavController> {
                 label: 'home',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.map_outlined, color: Colors.black),
-                activeIcon: Icon(Icons.map, color: Colors.black),
-                label: 'map',
+                icon: Icon(Icons.search, color: Colors.black),
+                activeIcon: Icon(Icons.search, color: Colors.black),
+                label: 'search',
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.add_box_outlined, color: Colors.black),
                 label: 'add',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border, color: Colors.black),
-                activeIcon: Icon(Icons.favorite, color: Colors.black),
-                label: '',
+                icon: Icon(Icons.map_outlined, color: Colors.black),
+                activeIcon: Icon(Icons.map, color: Colors.black),
+                label: 'map',
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline, color: Colors.black),

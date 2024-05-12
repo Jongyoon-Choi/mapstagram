@@ -50,6 +50,8 @@ dependencies:
   uuid: ^4.3.3
   timeago: ^3.6.1
   flutter_naver_map: ^1.2.2
+  http: ^1.2.1
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:

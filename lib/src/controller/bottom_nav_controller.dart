@@ -6,12 +6,14 @@ import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:mapstagram/src/pages/upload.dart';
 import 'package:get/get.dart';
 
-enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
+enum PageName { HOME, SEARCH, UPLOAD, MAPSEARCH, MYPAGE }
 
 class BottomNavController extends GetxController {
   static BottomNavController get to => Get.find();
   RxInt pageIndex = 0.obs;
   GlobalKey<NavigatorState> searchPageNavigationKey =
+      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> mapSearchPageNavigationKey =
       GlobalKey<NavigatorState>();
   List<int> bottomHistory = [0];
 
@@ -25,7 +27,7 @@ class BottomNavController extends GetxController {
         break;
       case PageName.HOME:
       case PageName.SEARCH:
-      case PageName.ACTIVITY:
+      case PageName.MAPSEARCH:
       case PageName.MYPAGE:
         _changePage(value, hasGesture: hasGesture);
         break;
@@ -58,6 +60,9 @@ class BottomNavController extends GetxController {
       var page = PageName.values[bottomHistory.last];
       if (page == PageName.SEARCH) {
         var value = await searchPageNavigationKey.currentState!.maybePop();
+        if (value) return false;
+      } else if (page == PageName.MAPSEARCH) {
+        var value = await mapSearchPageNavigationKey.currentState!.maybePop();
         if (value) return false;
       }
       bottomHistory.removeLast();
