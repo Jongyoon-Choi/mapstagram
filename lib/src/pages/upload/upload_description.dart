@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class UploadDescription extends GetView<UploadController> {
   const UploadDescription({super.key});
@@ -42,7 +40,7 @@ class UploadDescription extends GetView<UploadController> {
 
   Widget _rating() {
     return const Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -75,7 +73,7 @@ class UploadDescription extends GetView<UploadController> {
 
   Widget snsInfo() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
           Row(
@@ -121,12 +119,9 @@ class UploadDescription extends GetView<UploadController> {
         elevation: 0,
         leading: GestureDetector(
           onTap: Get.back,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ImageData(
-              IconsPath.backBtnIcon,
-              width: 50,
-            ),
+          child: const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Icon(Icons.west),
           ),
         ),
         title: const Text(
@@ -139,12 +134,9 @@ class UploadDescription extends GetView<UploadController> {
         actions: [
           GestureDetector(
             onTap: controller.uploadPost,
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(15),
-              child: ImageData(
-                IconsPath.uploadComplete,
-                width: 50,
-              ),
+              child: Icon(Icons.check, color: Colors.blue),
             ),
           )
         ],

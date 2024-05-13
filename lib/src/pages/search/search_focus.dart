@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/bottom_nav_controller.dart';
 
 class SearchFocus extends StatefulWidget {
@@ -24,7 +23,7 @@ class _SearchFocusState extends State<SearchFocus>
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: Text(
         menu,
-        style: TextStyle(fontSize: 15, color: Colors.black),
+        style: const TextStyle(fontSize: 15, color: Colors.black),
       ),
     );
   }
@@ -72,9 +71,9 @@ class _SearchFocusState extends State<SearchFocus>
         elevation: 0,
         leading: GestureDetector(
           onTap: BottomNavController.to.willPopAction,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ImageData(IconsPath.backBtnIcon),
+          child: const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Icon(Icons.west),
           ),
         ),
         titleSpacing: 0,

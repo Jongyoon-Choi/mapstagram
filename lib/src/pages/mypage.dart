@@ -91,7 +91,7 @@ class MyPage extends GetView<MypageController> {
               ),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(

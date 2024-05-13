@@ -3,7 +3,6 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class UploadPlace extends GetView<UploadController> {
   const UploadPlace({super.key});
@@ -18,12 +17,9 @@ class UploadPlace extends GetView<UploadController> {
         elevation: 0,
         leading: GestureDetector(
           onTap: Get.back,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ImageData(
-              IconsPath.backBtnIcon,
-              width: 50,
-            ),
+          child: const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Icon(Icons.west),
           ),
         ),
         title: const Text(
@@ -37,9 +33,9 @@ class UploadPlace extends GetView<UploadController> {
         actions: [
           GestureDetector(
             onTap: controller.gotoDescription,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ImageData(IconsPath.nextImage, width: 50),
+            child: const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Icon(Icons.east, color: Colors.blue),
             ),
           )
         ],
@@ -57,7 +53,7 @@ class UploadPlace extends GetView<UploadController> {
         onMapReady: (controller) async {
           final marker = NMarker(
               id: 'test',
-              position: NLatLng(37.56661381925933, 126.97839497849134));
+              position: const NLatLng(37.56661381925933, 126.97839497849134));
           final onMarkerInfoWindow =
               NInfoWindow.onMarker(id: marker.info.id, text: "테스트");
           controller.addOverlay(marker);

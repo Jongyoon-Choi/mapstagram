@@ -66,7 +66,7 @@ class MapSearchResult extends StatelessWidget {
             style: const TextStyle(
                 color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             roadAddress!,
             style: const TextStyle(color: Colors.black, fontSize: 18),
@@ -87,7 +87,7 @@ class MapSearchResult extends StatelessWidget {
           onTap: BottomNavController.to.willPopAction,
           child: const Padding(
             padding: EdgeInsets.all(15.0),
-            child: Icon(Icons.keyboard_backspace),
+            child: Icon(Icons.west),
           ),
         ),
         titleSpacing: 0,

@@ -5,6 +5,7 @@ import 'package:mapstagram/src/components/post_widget.dart';
 import 'package:mapstagram/src/controller/home_contrioller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:mapstagram/src/pages/active_history.dart';
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -74,11 +75,23 @@ class Home extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: ImageData(
-          IconsPath.logo,
-          width: 270,
+        title: const Text(
+          'mapstagram',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         actions: [
+          GestureDetector(
+            onTap: () {
+              Get.to(const ActiveHistory());
+            },
+            child: const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Icon(Icons.favorite_border)),
+          ),
           GestureDetector(
             onTap: () {},
             child: Padding(
@@ -88,7 +101,7 @@ class Home extends GetView<HomeController> {
                 width: 50,
               ),
             ),
-          )
+          ),
         ],
       ),
       body: ListView(

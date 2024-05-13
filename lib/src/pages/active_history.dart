@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mapstagram/src/components/avatar_widget.dart';
 
 class ActiveHistory extends StatelessWidget {
@@ -49,7 +48,7 @@ class ActiveHistory extends StatelessWidget {
 
   Widget _newRecentlyActiveView(String title) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -76,7 +75,7 @@ class ActiveHistory extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          '활동',
+          '알림',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

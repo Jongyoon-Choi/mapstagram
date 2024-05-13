@@ -12,7 +12,7 @@ class MapSearchFocus extends StatefulWidget {
 class _MapSearchFocusState extends State<MapSearchFocus> {
   Widget _VisitPlace() {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffdedede)),
       ),
@@ -57,9 +57,9 @@ class _MapSearchFocusState extends State<MapSearchFocus> {
         elevation: 0,
         leading: GestureDetector(
           onTap: BottomNavController.to.willPopAction,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Icon(Icons.keyboard_backspace),
+          child: const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Icon(Icons.west),
           ),
         ),
         titleSpacing: 0,
@@ -95,7 +95,7 @@ class _MapSearchFocusState extends State<MapSearchFocus> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
                 '최근 검색',

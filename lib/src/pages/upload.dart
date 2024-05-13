@@ -214,10 +214,7 @@ class Upload extends GetView<UploadController> {
         elevation: 0,
         leading: GestureDetector(
           onTap: Get.back,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ImageData(IconsPath.closeImage),
-          ),
+          child: const Icon(Icons.close, size: 35),
         ),
         title: const Text(
           'New Post',
@@ -230,9 +227,9 @@ class Upload extends GetView<UploadController> {
         actions: [
           GestureDetector(
             onTap: controller.gotoImageFilter,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ImageData(IconsPath.nextImage, width: 50),
+            child: const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Icon(Icons.east, color: Colors.blue),
             ),
           )
         ],
