@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:mapstagram/src/controller/bottom_nav_controller.dart';
 import 'package:mapstagram/src/pages/search/map_search_result.dart';
 

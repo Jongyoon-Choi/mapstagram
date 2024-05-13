@@ -9,7 +9,7 @@ class MapSearchResult extends StatelessWidget {
   Future<List<Map<String, String>>> _SearchKeyword(String text) async {
     final encodedText = Uri.encodeComponent(text); // text를 URL 인코딩합니다.
     final url = Uri.parse(
-        'https://openapi.naver.com/v1/search/local.xml?query=$encodedText&display=5&start=1&sort=random');
+        'https://openapi.naver.com/v1/search/local.xml?query=$encodedText&display=5&start=1&sort=comment');
     final headers = {
       'X-Naver-Client-Id': 'HfLbhOX0mk6W6DBlMWNU',
       'X-Naver-Client-Secret': 'EQFNwLhm2n',
