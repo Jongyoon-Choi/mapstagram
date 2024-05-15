@@ -44,13 +44,13 @@ class _SearchState extends State<Search> {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-              margin: const EdgeInsets.only(left: 10),
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 color: const Color(0xffefefef),
               ),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.search),
                   Text(
                     '검색',
@@ -63,10 +63,6 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Icon(Icons.location_pin),
         ),
       ],
     );

@@ -38,22 +38,27 @@ class UploadDescription extends GetView<UploadController> {
     );
   }
 
+  Widget _place() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+      child: Text(
+        '장소명',
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+
   Widget _rating() {
     return const Padding(
       padding: EdgeInsets.all(15.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('장소명'),
-          Row(
-            children: [
-              Icon(Icons.star_border, color: Colors.blue, size: 22),
-              Icon(Icons.star_border, color: Colors.blue, size: 22),
-              Icon(Icons.star_border, color: Colors.blue, size: 22),
-              Icon(Icons.star_border, color: Colors.blue, size: 22),
-              Icon(Icons.star_border, color: Colors.blue, size: 22),
-            ],
-          ),
+          Icon(Icons.star_border, color: Colors.blue, size: 40),
+          Icon(Icons.star_border, color: Colors.blue, size: 40),
+          Icon(Icons.star_border, color: Colors.blue, size: 40),
+          Icon(Icons.star_border, color: Colors.blue, size: 40),
+          Icon(Icons.star_border, color: Colors.blue, size: 40),
         ],
       ),
     );
@@ -156,6 +161,7 @@ class UploadDescription extends GetView<UploadController> {
                   children: [
                     _description(),
                     line,
+                    _place(),
                     _rating(),
                     line,
                     infoOnt('사람 태그하기'),
