@@ -4,7 +4,6 @@ import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/components/post_widget.dart';
 import 'package:mapstagram/src/controller/home_contrioller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:mapstagram/src/pages/active_history.dart';
 
 class Home extends GetView<HomeController> {

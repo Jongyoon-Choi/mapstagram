@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:xml/xml.dart' as xml;
 
-class UploadPlaceResult extends StatelessWidget {
+class UploadPlaceResult extends GetView<UploadController> {
   const UploadPlaceResult({super.key});
 
   Future<List<Map<String, String>>> _SearchKeyword(String text) async {
@@ -74,7 +75,8 @@ class UploadPlaceResult extends StatelessWidget {
           const SizedBox(height: 8),
           ElevatedButton(
               onPressed: () {
-                Get.back(result: item);
+                controller.changePlace(item);
+                Get.back();
               },
               child: const Text('선택')),
         ],

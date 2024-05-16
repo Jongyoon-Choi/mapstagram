@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:mapstagram/src/pages/upload/upload_place_result.dart';
 
-class UploadPlace extends StatefulWidget {
+class UploadPlace extends GetView<UploadController> {
   const UploadPlace({super.key});
 
-  @override
-  State<UploadPlace> createState() => _UploadPlaceState();
-}
-
-class _UploadPlaceState extends State<UploadPlace> {
-  Widget _VisitPlace() {
+  Widget _VisitPlace(String title) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffdedede)),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Icon(Icons.location_on, color: Colors.grey),
               ),
               Text(
-                '숭실 대학교',
+                title,
                 style: TextStyle(color: Colors.black, fontSize: 18),
                 textAlign: TextAlign.center,
               ),
             ],
           ),
-          Row(
+          const Row(
             children: [
               Text(
                 '05.12.',
@@ -74,7 +70,7 @@ class _UploadPlaceState extends State<UploadPlace> {
           child: TextField(
             decoration: const InputDecoration(
               border: InputBorder.none,
-              hintText: ' 장소, 주소 검색',
+              hintText: '장소 검색',
               contentPadding: EdgeInsets.only(left: 15, top: 7, bottom: 7),
               isDense: true,
             ),
@@ -99,11 +95,10 @@ class _UploadPlaceState extends State<UploadPlace> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            _VisitPlace(),
-            _VisitPlace(),
-            _VisitPlace(),
-            _VisitPlace(),
-            _VisitPlace(),
+            _VisitPlace('숭실대'),
+            _VisitPlace('동작구 맛집'),
+            _VisitPlace('성수동 카페'),
+            _VisitPlace('서울 명소'),
           ],
         ),
       ),

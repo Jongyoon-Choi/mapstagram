@@ -19,6 +19,7 @@ class UploadController extends GetxController {
   var albums = <AssetPathEntity>[];
   RxList<AssetEntity> imageList = <AssetEntity>[].obs;
   RxString headerTitle = ''.obs;
+  RxString placeTitle = '장소 추가'.obs;
   TextEditingController textEditingController = TextEditingController();
 
   Rx<AssetEntity> selectedImage = const AssetEntity(
@@ -27,6 +28,8 @@ class UploadController extends GetxController {
     width: 0,
     height: 0,
   ).obs;
+  Map<String, String>? place;
+  double? rating;
   File? filteredImage;
   Post? post;
 
@@ -78,6 +81,15 @@ class UploadController extends GetxController {
     await _pagingPhotos(album);
   }
 
+  void changeRating(double rating) {
+    this.rating = rating;
+  }
+
+  void changePlace(Map<String, String> item) {
+    place = item;
+    placeTitle(item['title']);
+  }
+
   void gotoImageFilter() async {
     var file = await selectedImage.value.file;
     var fileName = basename(file!.path);
@@ -102,10 +114,6 @@ class UploadController extends GetxController {
     }
   }
 
-  void gotoDescription() async {
-    Get.to(() => const UploadDescription());
-  }
-
   void unfocusKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
     //FocusScope.of(context).unfocus(); Get.context!
@@ -125,6 +133,11 @@ class UploadController extends GetxController {
             var updatedPost = post!.copyWith(
               thumbnail: downloadUrl,
               description: textEditingController.text,
+              placeTitle: place?['title'],
+              roadAddress: place?['roadAddress'],
+              mapx: place?['mapx'],
+              mapy: place?['mapy'],
+              rating: rating,
             );
             _submitPost(updatedPost);
           }

@@ -45,17 +45,25 @@ class UploadDescription extends GetView<UploadController> {
       onTap: () {
         Get.to(() => const UploadPlace());
       },
-      child: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '장소 추가',
-              style: TextStyle(fontSize: 18),
-            ),
-            Icon(Icons.arrow_forward_ios),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        child: Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.location_pin, color: Colors.lightBlue),
+                  const SizedBox(width: 10),
+                  Text(
+                    controller.placeTitle.value,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              const Icon(Icons.arrow_forward_ios),
+            ],
+          ),
         ),
       ),
     );
@@ -75,7 +83,7 @@ class UploadDescription extends GetView<UploadController> {
         ),
         itemPadding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
         onRatingUpdate: (rating) {
-          print(rating);
+          controller.changeRating(rating);
         },
       ),
     );

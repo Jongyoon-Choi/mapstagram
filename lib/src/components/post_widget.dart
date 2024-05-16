@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mapstagram/src/components/avatar_widget.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/models/post.dart';
@@ -81,20 +82,19 @@ class PostWidget extends StatelessWidget {
   }
 
   Widget _place() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('숭실 대학교'),
-          Row(
-            children: [
-              Icon(Icons.star, color: Colors.blue, size: 16),
-              Icon(Icons.star, color: Colors.blue, size: 16),
-              Icon(Icons.star, color: Colors.blue, size: 16),
-              Icon(Icons.star_half, color: Colors.blue, size: 16),
-              Icon(Icons.star_border, color: Colors.blue, size: 16),
-            ],
+          Text(post.placeTitle ?? ''),
+          RatingBarIndicator(
+            rating: post.rating ?? 0.0, // 평점
+            itemBuilder: (context, index) =>
+                Icon(Icons.star, color: Colors.blue),
+            itemCount: 5,
+            itemSize: 20,
+            direction: Axis.horizontal,
           ),
         ],
       ),
@@ -114,9 +114,7 @@ class PostWidget extends StatelessWidget {
           ExpandableText(
             post.description ?? '',
             prefixText: post.userInfo!.nickname,
-            onPrefixTap: () {
-              print('개발하는 남자 페이지 이동');
-            },
+            onPrefixTap: () {},
             prefixStyle: const TextStyle(fontWeight: FontWeight.bold),
             expandText: '더보기',
             collapseText: '접기',
