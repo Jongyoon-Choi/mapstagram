@@ -1,15 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-//27분
 class Upload extends GetView<UploadController> {
-  Upload({super.key});
+  const Upload({super.key});
 
   Widget _imagePreview() {
     var width = Get.width;
@@ -109,7 +107,7 @@ class Upload extends GetView<UploadController> {
                       ),
                     ),
                   ),
-                  Icon(Icons.arrow_drop_down)
+                  const Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),

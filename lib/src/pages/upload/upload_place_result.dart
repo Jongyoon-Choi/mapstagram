@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
-import 'package:mapstagram/src/controller/bottom_nav_controller.dart';
 
-class MapSearchResult extends StatelessWidget {
-  const MapSearchResult({super.key});
+class UploadPlaceResult extends StatelessWidget {
+  const UploadPlaceResult({super.key});
 
   Future<List<Map<String, String>>> _SearchKeyword(String text) async {
     final encodedText = Uri.encodeComponent(text); // text를 URL 인코딩합니다.
@@ -54,7 +54,7 @@ class MapSearchResult extends StatelessWidget {
     final roadAddress = item['roadAddress'];
 
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       width: Size.infinite.width,
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffdedede)),
@@ -71,6 +71,12 @@ class MapSearchResult extends StatelessWidget {
             roadAddress!,
             style: const TextStyle(color: Colors.black, fontSize: 18),
           ),
+          const SizedBox(height: 8),
+          ElevatedButton(
+              onPressed: () {
+                Get.back(result: item);
+              },
+              child: const Text('선택')),
         ],
       ),
     );
@@ -78,13 +84,15 @@ class MapSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final keyword = ModalRoute.of(context)!.settings.arguments as String;
+    var keyword = Get.arguments;
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
-          onTap: BottomNavController.to.willPopAction,
+          onTap: () {
+            Get.back();
+          },
           child: const Padding(
             padding: EdgeInsets.all(15.0),
             child: Icon(Icons.west),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:get/get.dart';
+import 'package:mapstagram/src/pages/upload/upload_place.dart';
 
 class UploadDescription extends GetView<UploadController> {
   const UploadDescription({super.key});
@@ -39,37 +41,59 @@ class UploadDescription extends GetView<UploadController> {
   }
 
   Widget _place() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-      child: Text(
-        '장소명',
-        style: TextStyle(fontSize: 18),
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const UploadPlace());
+      },
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '장소 추가',
+              style: TextStyle(fontSize: 18),
+            ),
+            Icon(Icons.arrow_forward_ios),
+          ],
+        ),
       ),
     );
   }
 
   Widget _rating() {
-    return const Padding(
-      padding: EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(Icons.star_border, color: Colors.blue, size: 40),
-          Icon(Icons.star_border, color: Colors.blue, size: 40),
-          Icon(Icons.star_border, color: Colors.blue, size: 40),
-          Icon(Icons.star_border, color: Colors.blue, size: 40),
-          Icon(Icons.star_border, color: Colors.blue, size: 40),
-        ],
+    return Center(
+      child: RatingBar(
+        initialRating: 0,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        ratingWidget: RatingWidget(
+          full: const Icon(Icons.star, color: Colors.blue, size: 50),
+          half: const Icon(Icons.star_half, color: Colors.blue, size: 50),
+          empty: const Icon(Icons.star_border, color: Colors.blue, size: 50),
+        ),
+        itemPadding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+        onRatingUpdate: (rating) {
+          print(rating);
+        },
       ),
     );
   }
 
+// Icon(Icons.star_border, color: Colors.blue, size: 40),
   Widget infoOnt(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 17),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18),
+          ),
+          const Icon(Icons.arrow_forward_ios),
+        ],
       ),
     );
   }
@@ -164,11 +188,11 @@ class UploadDescription extends GetView<UploadController> {
                     _place(),
                     _rating(),
                     line,
-                    infoOnt('사람 태그하기'),
+                    infoOnt('사람 태그'),
                     line,
                     infoOnt('위치 추가'),
                     line,
-                    infoOnt('다른 미디어에도 게시'),
+                    infoOnt('음악 추가'),
                     line,
                     snsInfo(),
                   ],
