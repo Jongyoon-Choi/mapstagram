@@ -75,7 +75,7 @@ class UploadPlace extends GetView<UploadController> {
               isDense: true,
             ),
             onSubmitted: (keyword) {
-              Get.off(const UploadPlaceResult(), arguments: keyword);
+              Get.to(const UploadPlaceResult(), arguments: keyword);
             },
           ),
         ),

@@ -103,11 +103,16 @@ class Home extends GetView<HomeController> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          _storyBoardList(),
-          _postList(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.loadFeedList();
+        },
+        child: ListView(
+          children: [
+            _storyBoardList(),
+            _postList(),
+          ],
+        ),
       ),
     );
   }

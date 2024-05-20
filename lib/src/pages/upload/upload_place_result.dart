@@ -76,7 +76,7 @@ class UploadPlaceResult extends GetView<UploadController> {
           ElevatedButton(
               onPressed: () {
                 controller.changePlace(item);
-                Get.back();
+                Get.until((route) => Get.currentRoute == '/UploadDescription');
               },
               child: const Text('선택')),
         ],
