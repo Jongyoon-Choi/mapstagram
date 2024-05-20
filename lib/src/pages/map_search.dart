@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:mapstagram/src/pages/search/map_search_focus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapSearch extends StatefulWidget {
   const MapSearch({super.key});
@@ -11,6 +11,24 @@ class MapSearch extends StatefulWidget {
 }
 
 class _MapSearchState extends State<MapSearch> {
+  @override
+  void initState() {
+    super.initState();
+    requestLocationPermission();
+  }
+
+  Future<void> requestLocationPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      // 권한이 허용됨
+    } else if (status.isDenied) {
+      // 권한이 거부됨
+    } else if (status.isPermanentlyDenied) {
+      // 권한이 영구적으로 거부됨
+      openAppSettings();
+    }
+  }
+
   Widget _appbar() {
     return Row(
       children: [

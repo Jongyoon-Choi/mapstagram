@@ -72,7 +72,7 @@ class _MapSearchFocusState extends State<MapSearchFocus> {
           child: TextField(
             decoration: const InputDecoration(
               border: InputBorder.none,
-              hintText: ' 장소, 주소 검색',
+              hintText: '장소 검색',
               contentPadding: EdgeInsets.only(left: 15, top: 7, bottom: 7),
               isDense: true,
             ),
