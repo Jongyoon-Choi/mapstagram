@@ -6,6 +6,8 @@ import 'package:mapstagram/src/controller/mypage_controller.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
+import '../notification/local_push_notification.dart';
+
 class MyPage extends GetView<MypageController> {
   const MyPage({super.key});
 
@@ -184,6 +186,42 @@ class MyPage extends GetView<MypageController> {
         });
   }
 
+  Widget _notification() {
+    return Row(
+        children: [
+          ElevatedButton(
+            onPressed: () => {
+              LocalPushNotifications.showSimpleNotification(
+                  title: "title",
+                  body: "body",
+                  payload: "payload"
+              ),
+              print("simple push"),
+            },
+            child: const Text("simple push"),
+          ),
+          ElevatedButton(
+            onPressed: () => {
+              LocalPushNotifications.showScheduleNotification(
+                  title: "title",
+                  body: "body",
+                  payload: "payload"
+              ),
+              print("schedule push"),
+            },
+            child: const Text("schedule push"),
+          ),
+          ElevatedButton(
+            onPressed: () => {
+              LocalPushNotifications.cancelAll(),
+              print("cancel push"),
+            },
+            child: const Text("cancel push"),
+          ),
+        ]
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,6 +262,7 @@ class MyPage extends GetView<MypageController> {
         child: Column(
           children: [
             _information(),
+            _notification(),
             _menu(),
             _discoverPeople(),
             const SizedBox(height: 20),
