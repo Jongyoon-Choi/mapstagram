@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:xml/xml.dart' as xml;
 import 'package:mapstagram/src/controller/bottom_nav_controller.dart';
 
 class MapSearchResult extends StatelessWidget {
@@ -9,40 +10,27 @@ class MapSearchResult extends StatelessWidget {
   Future<List<Map<String, String>>> _SearchKeyword(String text) async {
     final encodedText = Uri.encodeComponent(text); // text를 URL 인코딩합니다.
     final url = Uri.parse(
-        'https://openapi.naver.com/v1/search/local.xml?query=$encodedText&display=5&start=1&sort=comment');
-    final headers = {
-      'X-Naver-Client-Id': 'HfLbhOX0mk6W6DBlMWNU',
-      'X-Naver-Client-Secret': 'EQFNwLhm2n',
-    };
-    final response = await http.get(url, headers: headers);
+        'https://api.vworld.kr/req/search?service=search&request=search&version=2.0&crs=EPSG:900913&bbox=14140071.146077,4494339.6527027,14160071.146077,4496339.6527027&size=10&page=1&query=${encodedText}&type=place&format=json&errorformat=json&key=DB852C75-7547-3DC4-B58B-C419CC2F8C00');
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      // XML 문자열을 파싱합니다.
-      var document = xml.XmlDocument.parse(response.body);
+      // JSON 문자열을 맵으로 디코딩합니다.
+      Map<String, dynamic> data = json.decode(response.body);
 
-      // 파싱된 결과를 저장할 리스트를 초기화합니다.
+      // 필요한 정보를 추출합니다.
       List<Map<String, String>> resultList = [];
-
-      // 각 <item> 요소를 반복하여 필요한 정보를 추출합니다.
-      for (var item in document.findAllElements('item')) {
-        // 각 요소에서 필요한 정보를 추출합니다.
-        var title = item.findElements('title').single.innerText;
-        // <b> 태그를 제거합니다.
-        title = title.replaceAll('<b>', '').replaceAll('</b>', '');
-        var roadAddress = item.findElements('roadAddress').single.innerText;
-        var mapx = item.findElements('mapx').single.innerText;
-        var mapy = item.findElements('mapy').single.innerText;
+      for (var item in data['response']['result']['items']) {
+        print('item: ${item}');
+        var title = item['title']?.toString() ?? '';
+        var roadAddress = item['address']['road']?.toString() ?? '';
 
         // 추출한 정보를 맵에 저장하고 결과 리스트에 추가합니다.
         var resultMap = {
           'title': title,
-          'roadAddress': roadAddress,
-          'mapx': mapx,
-          'mapy': mapy,
+          'road': roadAddress,
         };
         resultList.add(resultMap);
       }
-      print('resultList: ${resultList}');
       return resultList;
     } else {
       throw Exception('Failed to search keyword: ${response.statusCode}');
@@ -51,7 +39,7 @@ class MapSearchResult extends StatelessWidget {
 
   Widget PlaceItem(Map<String, String> item) {
     final title = item['title'];
-    final roadAddress = item['roadAddress'];
+    final roadAddress = item['road'];
 
     return Container(
       padding: EdgeInsets.all(15),
