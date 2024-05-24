@@ -9,8 +9,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _checkPermission();
     loadFeedList();
+    _checkPermission();
   }
 
   void loadFeedList() async {

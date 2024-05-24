@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/search/search_focus.dart';
 import 'package:get/get.dart';
-import 'package:quiver/iterables.dart';
+import 'package:mapstagram/src/repository/post_repository.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -14,22 +13,17 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  List<List<int>> groupBox = [[], [], []];
-  List<int> groupIndex = [0, 0, 0];
+  RxList<Post> postList = <Post>[].obs;
 
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < 100; i++) {
-      var gi = groupIndex.indexOf(min<int>(groupIndex)!);
-      var size = 1;
-      if (gi != 1) {
-        size = Random().nextInt(100) % 2 == 0 ? 1 : 2;
-      }
+    _loadFeedList();
+  }
 
-      groupBox[gi].add(size);
-      groupIndex[gi] += size;
-    }
+  Future<void> _loadFeedList() async {
+    var feedList = await PostRepository.loadFeedList();
+    postList.assignAll(feedList);
   }
 
   Widget _appbar() {
@@ -69,30 +63,33 @@ class _SearchState extends State<Search> {
   }
 
   Widget _body() {
-    return SingleChildScrollView(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          groupBox.length,
-          (index) => Expanded(
-            child: Column(
-              children: List.generate(
-                groupBox[index].length,
-                (jndex) => Container(
-                    height: Get.width * 0.33 * groupBox[index][jndex],
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        color: Colors.primaries[
-                            Random().nextInt(Colors.primaries.length)]),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg',
-                      fit: BoxFit.cover,
-                    )),
-              ).toList(),
-            ),
-          ),
-        ).toList(),
+    return Obx(
+      () => GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: postList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 1,
+          mainAxisSpacing: 1,
+          crossAxisSpacing: 1,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return _postCard(postList[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _postCard(Post post) {
+    return Container(
+      height: Get.width * 0.33,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: post.thumbnail!,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -101,11 +98,16 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            _appbar(),
-            Expanded(child: _body()),
-          ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            _loadFeedList();
+          },
+          child: ListView(
+            children: [
+              _appbar(),
+              Expanded(child: _body()),
+            ],
+          ),
         ),
       ),
     );

@@ -10,7 +10,7 @@ class PostRepository {
     var documnet = FirebaseFirestore.instance
         .collection('post')
         .orderBy('createdAt', descending: true)
-        .limit(10);
+        .limit(20);
     var data = await documnet.get();
     return data.docs.map<Post>((e) => Post.fromJson(e.id, e.data())).toList();
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mapstagram/src/components/avatar_widget.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/components/post_widget.dart';
-import 'package:mapstagram/src/controller/home_contrioller.dart';
+import 'package:mapstagram/src/controller/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:mapstagram/src/pages/active_history.dart';
 
