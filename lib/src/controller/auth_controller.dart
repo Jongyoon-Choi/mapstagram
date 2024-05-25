@@ -6,11 +6,35 @@ import 'package:mapstagram/src/models/instagram_user.dart';
 import 'package:mapstagram/src/repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AuthController extends GetxController {
   static AuthController get to => Get.find();
 
   Rx<IUser> user = IUser().obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _checkPermission();
+  }
+
+  Future<void> _checkPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.notification,
+    ].request();
+    if (statuses[Permission.location]!.isGranted) {
+      print('위치 권한: 성공');
+    } else {
+      print('위치 권한: 실패');
+    }
+    if (statuses[Permission.notification]!.isGranted) {
+      print('알림 권한: 성공');
+    } else {
+      print('알림 권한: 실패');
+    }
+  }
 
   Future<IUser?> loginUser(String uid) async {
     //DB 조회

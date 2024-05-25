@@ -16,12 +16,11 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     loadFeedList();
-    _checkLocationPermission();
-    _checkPushPermisson();
     // noti_timer();
   }
 
   void noti_timer() async {
+    await LocalPushNotifications.init();
     Position pre30 = await Geolocator.getCurrentPosition();
     Position pre20 = await Geolocator.getCurrentPosition();
     Position pre10 = await Geolocator.getCurrentPosition();
@@ -46,9 +45,24 @@ class HomeController extends GetxController {
 
       if (diff10 < 500 && diff20 < 500 && diff30 >= 500 /*&& 거주지 비교*/) {
         /*게시물 처리*/
+        var feedList = await PostRepository.loadFeedList();
+        double min_diff = 2e9;
+        var recommand_post;
+        for (int i = 0; i < feedList.length; i++) {
+          var diff = NLatLng(double.parse(feedList[i].mapx!),
+                  double.parse(feedList[i].mapy!))
+              .distanceTo(NLatLng(cur.latitude, cur.longitude));
+
+          if (min_diff > diff) {
+            min_diff = diff;
+            recommand_post = feedList[i];
+          }
+        }
 
         LocalPushNotifications.showSimpleNotification(
-            title: "title", body: "body", payload: "payload");
+            title: "이곳에 가봐라",
+            body: recommand_post.placeTitle,
+            payload: "payload");
       }
     });
   }
@@ -58,17 +72,20 @@ class HomeController extends GetxController {
     postList.assignAll(feedList);
   }
 
-  void _checkLocationPermission() {
-    Permission.location.request().then((status) {
-      if (status.isGranted) {
-        print('위치 권한: 성공');
-      } else {
-        print('위치 권한: 실패');
-      }
-    });
-  }
-
-  void _checkPushPermisson() async {
-    await LocalPushNotifications.init();
+  Future<void> _checkPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.notification,
+    ].request();
+    if (statuses[Permission.location]!.isGranted) {
+      print('위치 권한: 성공');
+    } else {
+      print('위치 권한: 실패');
+    }
+    if (statuses[Permission.notification]!.isGranted) {
+      print('알림 권한: 성공');
+    } else {
+      print('알림 권한: 실패');
+    }
   }
 }
