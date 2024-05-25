@@ -16,7 +16,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     loadFeedList();
-    // noti_timer();
+    noti_timer();
   }
 
   void noti_timer() async {

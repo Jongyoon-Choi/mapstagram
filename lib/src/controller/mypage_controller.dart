@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
 
-import '../notification/local_push_notification.dart';
-
 class MypageController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   Rx<IUser> targetUser = IUser().obs;
@@ -17,19 +15,6 @@ class MypageController extends GetxController with GetTickerProviderStateMixin {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
     loadData();
-
-    //listen notification
-    listenNotifications();
-  }
-
-  //푸시 알림 스트림에 데이터를 리슨
-  void listenNotifications() {
-    LocalPushNotifications.notificationStream.stream.listen((String? payload) {
-      if (payload != null) {
-        print('Received payload: $payload');
-        //Navigator.pushNamed(context, '/message', arguments: payload);
-      }
-    });
   }
 
   void setTargetUser() {
