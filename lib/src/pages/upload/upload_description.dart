@@ -169,12 +169,9 @@ class UploadDescription extends GetView<UploadController> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: controller.uploadPost,
-            child: const Padding(
-              padding: EdgeInsets.all(15),
-              child: Icon(Icons.check, color: Colors.blue),
-            ),
+          IconButton(
+            icon: Icon(Icons.check, color: Colors.blue),
+            onPressed: controller.uploadPost,
           )
         ],
       ),

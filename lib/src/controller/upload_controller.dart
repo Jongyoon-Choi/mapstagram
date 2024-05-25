@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mapstagram/src/components/message_popup.dart';
@@ -130,13 +131,16 @@ class UploadController extends GetxController {
           if (event.bytesTransferred == event.totalBytes &&
               event.state == TaskState.success) {
             var downloadUrl = await event.ref.getDownloadURL();
+            QuerySnapshot snapshot =
+                await FirebaseFirestore.instance.collection('post').get();
             var updatedPost = post!.copyWith(
+              id: snapshot.size.toString(),
               thumbnail: downloadUrl,
               description: textEditingController.text,
               placeTitle: place?['title'],
               roadAddress: place?['roadAddress'],
-              mapx: place?['mapx'],
-              mapy: place?['mapy'],
+              mapx: place?['mapy'],
+              mapy: place?['mapx'],
               rating: rating,
             );
             _submitPost(updatedPost);

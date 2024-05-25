@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:get/get.dart';
+import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/search/map_search_focus.dart';
+import 'package:mapstagram/src/repository/post_repository.dart';
 
 class MapSearch extends StatefulWidget {
   const MapSearch({super.key});
@@ -10,6 +13,19 @@ class MapSearch extends StatefulWidget {
 }
 
 class _MapSearchState extends State<MapSearch> {
+  RxList<Post> postList = <Post>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFeedList();
+  }
+
+  Future<void> _loadFeedList() async {
+    var feedList = await PostRepository.loadFeedList();
+    postList.assignAll(feedList);
+  }
+
   Widget _appbar() {
     return Row(
       children: [
@@ -57,13 +73,19 @@ class _MapSearchState extends State<MapSearch> {
         consumeSymbolTapEvents: false, // 심볼 탭 이벤트 소비 여부 설정
       ),
       onMapReady: (controller) async {
-        final marker = NMarker(
-            id: 'test',
-            position: NLatLng(37.56661381925933, 126.97839497849134));
-        final onMarkerInfoWindow =
-            NInfoWindow.onMarker(id: marker.info.id, text: "테스트");
-        controller.addOverlay(marker);
-        marker.openInfoWindow(onMarkerInfoWindow);
+        for (var post in postList) {
+          final marker = NMarker(
+            id: post.id.toString(), // 고유 id 사용
+            position: NLatLng(double.parse(post.mapx.toString()),
+                double.parse(post.mapy.toString())),
+          );
+          final onMarkerInfoWindow = NInfoWindow.onMarker(
+            id: marker.info.id,
+            text: "${post.placeTitle} (${post.rating})",
+          );
+          controller.addOverlay(marker);
+          marker.openInfoWindow(onMarkerInfoWindow);
+        }
         debugPrint("test");
       },
       onMapTapped: (point, latLng) {

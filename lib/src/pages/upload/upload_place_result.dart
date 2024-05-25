@@ -32,7 +32,9 @@ class UploadPlaceResult extends GetView<UploadController> {
         title = title.replaceAll('<b>', '').replaceAll('</b>', '');
         var roadAddress = item.findElements('roadAddress').single.innerText;
         var mapx = item.findElements('mapx').single.innerText;
+        mapx = '${mapx.substring(0, 3)}.${mapx.substring(3)}';
         var mapy = item.findElements('mapy').single.innerText;
+        mapy = '${mapy.substring(0, 2)}.${mapy.substring(2)}';
 
         // 추출한 정보를 맵에 저장하고 결과 리스트에 추가합니다.
         var resultMap = {
