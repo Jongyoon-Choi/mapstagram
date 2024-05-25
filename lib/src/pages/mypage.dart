@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:mapstagram/src/components/avatar_widget.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/mypage_controller.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:mapstagram/src/models/post.dart';
 
 class MyPage extends GetView<MypageController> {
@@ -21,7 +19,7 @@ class MyPage extends GetView<MypageController> {
         ),
         Text(
           title,
-          style: TextStyle(fontSize: 15, color: Colors.black),
+          style: const TextStyle(fontSize: 15, color: Colors.black),
         ),
       ],
     );

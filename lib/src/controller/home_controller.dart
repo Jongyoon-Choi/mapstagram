@@ -18,7 +18,7 @@ class HomeController extends GetxController {
     loadFeedList();
     _checkLocationPermission();
     _checkPushPermisson();
-    noti_timer();
+    // noti_timer();
   }
 
   void noti_timer() async {

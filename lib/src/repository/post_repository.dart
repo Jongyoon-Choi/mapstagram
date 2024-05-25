@@ -17,9 +17,6 @@ class PostRepository {
 
   static Future<List<Post>> loadMyFeedList(String myUid) async {
     try {
-      // var querySnapshot =
-      //     await FirebaseFirestore.instance.collection('post').limit(1).get();
-      // print("userInfo : " + querySnapshot.docs.first.data()['userInfo']['uid']);
       var document = FirebaseFirestore.instance
           .collection('post')
           .where('userInfo.uid', isEqualTo: myUid)
