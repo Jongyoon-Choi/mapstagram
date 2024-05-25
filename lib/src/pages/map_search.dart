@@ -13,7 +13,7 @@ class MapSearch extends StatefulWidget {
 }
 
 class _MapSearchState extends State<MapSearch> {
-  RxList<Post> postList = <Post>[].obs;
+  List<Post> postList = [];
 
   @override
   void initState() {
