@@ -1,4 +1,5 @@
 import 'package:mapstagram/src/models/post.dart';
+import 'package:mapstagram/src/notification/local_push_notification.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,7 +11,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     loadFeedList();
-    _checkPermission();
+    _checkLocationPermission();
+    _checkPushPermisson();
   }
 
   void loadFeedList() async {
@@ -18,7 +20,7 @@ class HomeController extends GetxController {
     postList.assignAll(feedList);
   }
 
-  void _checkPermission() {
+  void _checkLocationPermission() {
     Permission.location.request().then((status) {
       if (status.isGranted) {
         print('위치 권한: 성공');
@@ -26,5 +28,9 @@ class HomeController extends GetxController {
         print('위치 권한: 실패');
       }
     });
+  }
+
+  void _checkPushPermisson() async {
+    await LocalPushNotifications.init();
   }
 }
