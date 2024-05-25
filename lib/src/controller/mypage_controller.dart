@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:mapstagram/src/controller/auth_controller.dart';
 import 'package:mapstagram/src/models/instagram_user.dart';
 import 'package:get/get.dart';
+import 'package:mapstagram/src/models/post.dart';
+import 'package:mapstagram/src/repository/post_repository.dart';
 
 import '../notification/local_push_notification.dart';
 
 class MypageController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   Rx<IUser> targetUser = IUser().obs;
+  RxList<Post> postList = <Post>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
-    _loadData();
+    loadData();
 
     //listen notification
     listenNotifications();
@@ -38,9 +41,9 @@ class MypageController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void _loadData() {
+  void loadData() async {
     setTargetUser();
-    //포스트 리스트 로드
-    //사용자 정보 로드
+    var feedList = await PostRepository.loadMyFeedList(targetUser.value.uid!);
+    postList.assignAll(feedList);
   }
 }

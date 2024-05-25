@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mapstagram/src/components/avatar_widget.dart';
 import 'package:mapstagram/src/components/image_data.dart';
 import 'package:mapstagram/src/controller/mypage_controller.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:mapstagram/src/models/post.dart';
 
 class MyPage extends GetView<MypageController> {
   const MyPage({super.key});
@@ -126,10 +129,11 @@ class MyPage extends GetView<MypageController> {
   }
 
   Widget _tabView() {
-    return GridView.builder(
+    return Obx(
+      () => GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 100,
+        itemCount: controller.postList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 1,
@@ -137,10 +141,23 @@ class MyPage extends GetView<MypageController> {
           crossAxisSpacing: 1,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            color: Colors.grey,
-          );
-        });
+          return _postCard(controller.postList[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _postCard(Post post) {
+    return Container(
+      height: Get.width * 0.33,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: post.thumbnail!,
+        fit: BoxFit.cover,
+      ),
+    );
   }
 
   @override
@@ -179,8 +196,11 @@ class MyPage extends GetView<MypageController> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.loadData();
+        },
+        child: ListView(
           children: [
             _information(),
             _menu(),

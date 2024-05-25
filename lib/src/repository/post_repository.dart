@@ -7,11 +7,30 @@ class PostRepository {
   }
 
   static Future<List<Post>> loadFeedList() async {
-    var documnet = FirebaseFirestore.instance
+    var document = FirebaseFirestore.instance
         .collection('post')
         .orderBy('createdAt', descending: true)
         .limit(20);
-    var data = await documnet.get();
+    var data = await document.get();
     return data.docs.map<Post>((e) => Post.fromJson(e.id, e.data())).toList();
+  }
+
+  static Future<List<Post>> loadMyFeedList(String myUid) async {
+    try {
+      // var querySnapshot =
+      //     await FirebaseFirestore.instance.collection('post').limit(1).get();
+      // print("userInfo : " + querySnapshot.docs.first.data()['userInfo']['uid']);
+      var document = FirebaseFirestore.instance
+          .collection('post')
+          .where('userInfo.uid', isEqualTo: myUid)
+          .orderBy('createdAt', descending: true)
+          .limit(20);
+
+      var data = await document.get();
+      return data.docs.map<Post>((e) => Post.fromJson(e.id, e.data())).toList();
+    } catch (e) {
+      print('Error loading my feed list: $e');
+      return [];
+    }
   }
 }
