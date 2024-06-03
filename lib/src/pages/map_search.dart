@@ -53,6 +53,7 @@ class _MapSearchState extends State<MapSearch> {
         mapx: firstPost.mapx!,
         mapy: firstPost.mapy!,
         avgRating: avgRating,
+        postCount: postGroup.length,
       ));
     });
 
@@ -114,7 +115,7 @@ class _MapSearchState extends State<MapSearch> {
           );
           final onMarkerInfoWindow = NInfoWindow.onMarker(
             id: marker.info.id,
-            text: "${place.placeTitle} (${place.avgRating})",
+            text: "${place.placeTitle} ★${place.avgRating}(${place.postCount})",
           );
           controller.addOverlay(marker);
           marker.openInfoWindow(onMarkerInfoWindow);
