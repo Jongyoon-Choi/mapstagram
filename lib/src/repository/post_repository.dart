@@ -9,8 +9,7 @@ class PostRepository {
   static Future<List<Post>> loadFeedList() async {
     var document = FirebaseFirestore.instance
         .collection('post')
-        .orderBy('createdAt', descending: true)
-        .limit(20);
+        .orderBy('createdAt', descending: true);
     var data = await document.get();
     return data.docs.map<Post>((e) => Post.fromJson(e.id, e.data())).toList();
   }
@@ -20,8 +19,7 @@ class PostRepository {
       var document = FirebaseFirestore.instance
           .collection('post')
           .where('userInfo.uid', isEqualTo: myUid)
-          .orderBy('createdAt', descending: true)
-          .limit(20);
+          .orderBy('createdAt', descending: true);
 
       var data = await document.get();
       return data.docs.map<Post>((e) => Post.fromJson(e.id, e.data())).toList();

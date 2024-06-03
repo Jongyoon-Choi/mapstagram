@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:get/get.dart';
+import 'package:mapstagram/src/models/place.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/search/map_search_focus.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
@@ -13,17 +13,48 @@ class MapSearch extends StatefulWidget {
 }
 
 class _MapSearchState extends State<MapSearch> {
-  List<Post> postList = [];
+  List<Place> placeList = [];
 
   @override
   void initState() {
     super.initState();
-    _loadFeedList();
+    _loadPlaceList();
   }
 
-  Future<void> _loadFeedList() async {
+  Future<void> _loadPlaceList() async {
     var feedList = await PostRepository.loadFeedList();
-    postList.assignAll(feedList);
+    _groupByPlaceTitle(feedList);
+  }
+
+  List<Place> _groupByPlaceTitle(List<Post> posts) {
+    var placeMap = <String, List<Post>>{};
+
+    for (var post in posts) {
+      if (post.placeTitle != null && post.mapx != null && post.mapy != null) {
+        if (!placeMap.containsKey(post.placeTitle)) {
+          placeMap[post.placeTitle!] = [];
+        }
+        placeMap[post.placeTitle]!.add(post);
+      }
+    }
+
+    List<Place> places = [];
+    placeMap.forEach((placeTitle, postGroup) {
+      double sumRating = 0;
+      for (var post in postGroup) {
+        sumRating += post.rating!;
+      }
+      double avgRating = sumRating / postGroup.length;
+      var firstPost = postGroup.first;
+      places.add(Place(
+        placeTitle: placeTitle,
+        mapx: firstPost.mapx!,
+        mapy: firstPost.mapy!,
+        avgRating: avgRating,
+      ));
+    });
+
+    return places;
   }
 
   Widget _appbar() {
@@ -73,15 +104,15 @@ class _MapSearchState extends State<MapSearch> {
         consumeSymbolTapEvents: false, // 심볼 탭 이벤트 소비 여부 설정
       ),
       onMapReady: (controller) async {
-        for (var post in postList) {
+        for (var place in placeList) {
           final marker = NMarker(
-            id: post.id.toString(), // 고유 id 사용
-            position: NLatLng(double.parse(post.mapx.toString()),
-                double.parse(post.mapy.toString())),
+            id: place.placeTitle.toString(), // 고유 id 사용
+            position: NLatLng(double.parse(place.mapx.toString()),
+                double.parse(place.mapy.toString())),
           );
           final onMarkerInfoWindow = NInfoWindow.onMarker(
             id: marker.info.id,
-            text: "${post.placeTitle} (${post.rating})",
+            text: "${place.placeTitle} (${place.avgRating})",
           );
           controller.addOverlay(marker);
           marker.openInfoWindow(onMarkerInfoWindow);

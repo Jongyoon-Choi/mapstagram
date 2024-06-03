@@ -19,6 +19,21 @@ class HomeController extends GetxController {
     noti_timer();
   }
 
+  bool checkEnoughFar(
+      Position pre30, Position pre20, Position pre10, Position cur) {
+    var diff30 = NLatLng(pre30.latitude, pre30.longitude)
+        .distanceTo(NLatLng(cur.latitude, cur.longitude));
+    var diff20 = NLatLng(pre20.latitude, pre20.longitude)
+        .distanceTo(NLatLng(cur.latitude, cur.longitude));
+    var diff10 = NLatLng(pre10.latitude, pre10.longitude)
+        .distanceTo(NLatLng(cur.latitude, cur.longitude));
+
+    if (diff10 < 500 && diff20 < 500 && diff30 >= 500)
+      return true;
+    else
+      return false;
+  }
+
   void noti_timer() async {
     await LocalPushNotifications.init();
     Position pre30 = await Geolocator.getCurrentPosition();
@@ -33,17 +48,7 @@ class HomeController extends GetxController {
       pre10 = cur;
       cur = await Geolocator.getCurrentPosition();
 
-      // print(cur?.latitude);
-      // print(cur?.longitude);
-
-      var diff30 = NLatLng(pre30.latitude, pre30.longitude)
-          .distanceTo(NLatLng(cur.latitude, cur.longitude));
-      var diff20 = NLatLng(pre20.latitude, pre20.longitude)
-          .distanceTo(NLatLng(cur.latitude, cur.longitude));
-      var diff10 = NLatLng(pre10.latitude, pre10.longitude)
-          .distanceTo(NLatLng(cur.latitude, cur.longitude));
-
-      if (diff10 < 500 && diff20 < 500 && diff30 >= 500 /*&& 거주지 비교*/) {
+      if (checkEnoughFar(pre30, pre20, pre10, cur) /*&& 거주지 비교*/) {
         /*게시물 처리*/
         var feedList = await PostRepository.loadFeedList();
         double min_diff = 2e9;
