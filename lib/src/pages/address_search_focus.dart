@@ -86,19 +86,35 @@ class AddressSearchFocus extends GetView<UploadController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 30),
               child: Text(
-                '최근 검색',
+                '\n\nTip',
                 style: TextStyle(
                     color: Colors.blue,
-                    fontSize: 16,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
             ),
-            _VisitPlace('숭실대'),
-            _VisitPlace('동작구 맛집'),
-            _VisitPlace('성수동 카페'),
-            _VisitPlace('서울 명소'),
+            const Padding(
+              padding: EdgeInsets.only(left: 30),
+              child: Text(
+                '아래와 같이 검색하시면\n정확한 검색 결과를 얻을 수 있습니다',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                '\n도로명\n예) 서울시 동작구 상도로 369, 서울시 동작구 보라매로 5길\n\n지역명(동/리) + 번지\n예) 상도동 369\n\n지역명(동/리) + 건물명(아파트명)\n예) 동작 숭실대',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
           ],
         ),
       ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mapstagram/src/components/message_popup.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:mapstagram/src/pages/upload.dart';
-import 'package:mapstagram/src/pages/signup_page.dart';
 import 'package:get/get.dart';
 
 enum PageName { HOME, SEARCH, UPLOAD, MAPSEARCH, MYPAGE }
