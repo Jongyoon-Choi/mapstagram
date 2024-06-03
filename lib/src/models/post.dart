@@ -1,7 +1,6 @@
 import 'package:mapstagram/src/models/instagram_user.dart';
 
 class Post {
-  final String? id;
   final String? thumbnail;
   final String? description;
   final String? placeTitle;
@@ -18,7 +17,6 @@ class Post {
 
   //userInfo와 겹치는 정보들이 있고 update 됐을 때 Post의 변수들은 변경되지 않는 문제가 존재
   Post({
-    this.id,
     this.thumbnail,
     this.description,
     this.placeTitle,
@@ -53,7 +51,6 @@ class Post {
 
   factory Post.fromJson(String docId, Map<String, dynamic> json) {
     return Post(
-      id: json['id'] == null ? '' : json['id'] as String,
       thumbnail: json['thumbnail'] == null ? '' : json['thumbnail'] as String,
       description:
           json['description'] == null ? '' : json['description'] as String,
@@ -79,7 +76,6 @@ class Post {
   }
 
   Post copyWith({
-    String? id,
     String? thumbnail,
     String? description,
     String? placeTitle,
@@ -95,7 +91,6 @@ class Post {
     DateTime? deletedAt,
   }) {
     return Post(
-      id: id ?? this.id,
       thumbnail: thumbnail ?? this.thumbnail,
       description: description ?? this.description,
       placeTitle: placeTitle ?? this.placeTitle,
@@ -114,7 +109,6 @@ class Post {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'thumbnail': thumbnail,
       'description': description,
       'placeTitle': placeTitle,
