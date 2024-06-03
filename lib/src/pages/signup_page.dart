@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mapstagram/src/controller/auth_controller.dart';
+import 'package:mapstagram/src/controller/signup_controller.dart';
 import 'package:mapstagram/src/models/instagram_user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mapstagram/src/pages/address_search_focus.dart';
@@ -16,7 +18,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   TextEditingController nicknameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
+  SignupController uploadController = SignupController();
   final ImagePicker _picker = ImagePicker();
   XFile? thumbnailXFild;
 
@@ -81,39 +83,32 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Widget _address() {
-    return Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddressSearchFocus()));
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.search),
-                  Text(
-                    ' 장소, 주소 검색',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xff838383),
-                    ),
-                  )
-                ],
-              ),
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        child: GestureDetector(
+          onTap: () {
+            Get.to(const AddressSearchFocus());
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    uploadController.address.value,
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                ),
+                Icon(Icons.search),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -153,7 +148,6 @@ class _SignupPageState extends State<SignupPage> {
               uid: widget.uid,
               nickname: nicknameController.text,
               description: descriptionController.text,
-              address: addressController.text,
             );
             AuthController.to.signup(signupUser, thumbnailXFild);
           },

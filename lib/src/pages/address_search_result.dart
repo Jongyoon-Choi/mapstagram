@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:xml/xml.dart' as xml;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mapstagram/src/controller/bottom_nav_controller.dart';
+import 'package:mapstagram/src/controller/signup_controller.dart';
 
-class AddressSearchResult extends StatelessWidget {
+class AddressSearchResult extends GetView<SignupController> {
   const AddressSearchResult({super.key});
 
   Future<List<Map<String, String>>> _SearchKeyword(String text) async {
@@ -58,7 +58,8 @@ class AddressSearchResult extends StatelessWidget {
           const SizedBox(height: 8),
           ElevatedButton(
               onPressed: () {
-                Get.until((route) => Get.currentRoute == '/SignupPage');
+                controller.changePlace(item);
+                Get.until((route) => Get.currentRoute == '/');
               },
               child: const Text('선택')),
         ],

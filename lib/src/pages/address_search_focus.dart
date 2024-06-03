@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mapstagram/src/controller/upload_controller.dart';
+import 'package:mapstagram/src/controller/signup_controller.dart';
 import 'package:mapstagram/src/pages/address_search_result.dart';
 
-class AddressSearchFocus extends GetView<UploadController> {
+class AddressSearchFocus extends GetView<SignupController> {
   const AddressSearchFocus({super.key});
 
   Widget _VisitPlace(String title) {
@@ -80,7 +80,6 @@ class AddressSearchFocus extends GetView<UploadController> {
           ),
         ),
       ),
-      //회색 구분 선 하나 추가 예정
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mapstagram/src/controller/upload_controller.dart';
 import 'package:get/get.dart';
