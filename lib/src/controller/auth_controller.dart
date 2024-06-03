@@ -12,6 +12,9 @@ class AuthController extends GetxController {
   static AuthController get to => Get.find();
 
   Rx<IUser> user = IUser().obs;
+  RxString address = '거주지 검색'.obs;
+  String? mapx;
+  String? mapy;
 
   @override
   void onInit() {
@@ -79,5 +82,11 @@ class AuthController extends GetxController {
     if (result) {
       loginUser(signupUser.uid!);
     }
+  }
+
+  void changePlace(Map<String, String> item) {
+    address(item['roadAddress']);
+    mapx = item['mapx'];
+    mapy = item['mapy'];
   }
 }

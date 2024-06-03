@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mapstagram/src/controller/auth_controller.dart';
 import 'package:mapstagram/src/models/instagram_user.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mapstagram/src/pages/address_search_focus.dart';
 
 class SignupPage extends StatefulWidget {
   final String uid;
@@ -79,6 +81,36 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+  Widget _address() {
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        child: GestureDetector(
+          onTap: () {
+            Get.to(const AddressSearchFocus());
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    AuthController.to.address.value,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+                Icon(Icons.search),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,6 +133,8 @@ class _SignupPageState extends State<SignupPage> {
             _nickname(),
             const SizedBox(height: 30),
             _description(),
+            const SizedBox(height: 30),
+            _address(),
           ],
         ),
       ),
@@ -113,6 +147,11 @@ class _SignupPageState extends State<SignupPage> {
               uid: widget.uid,
               nickname: nicknameController.text,
               description: descriptionController.text,
+              roadAddress: AuthController.to.address.value == "거주지 검색"
+                  ? null
+                  : AuthController.to.address.value,
+              mapx: AuthController.to.mapx,
+              mapy: AuthController.to.mapy,
             );
             AuthController.to.signup(signupUser, thumbnailXFild);
           },
