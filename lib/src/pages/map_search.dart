@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:get/get.dart';
 import 'package:mapstagram/src/models/place.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/search/map_search_focus.dart';
@@ -23,7 +24,8 @@ class _MapSearchState extends State<MapSearch> {
 
   Future<void> _loadPlaceList() async {
     var feedList = await PostRepository.loadFeedList();
-    _groupByPlaceTitle(feedList);
+    var places = _groupByPlaceTitle(feedList);
+    placeList.assignAll(places);
   }
 
   List<Place> _groupByPlaceTitle(List<Post> posts) {
