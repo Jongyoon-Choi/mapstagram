@@ -6,6 +6,7 @@ import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
 
 class MypageController extends GetxController with GetTickerProviderStateMixin {
+  static MypageController get to => Get.find();
   late TabController tabController;
   Rx<IUser> targetUser = IUser().obs;
   RxList<Post> postList = <Post>[].obs;

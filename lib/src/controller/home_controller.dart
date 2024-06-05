@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:mapstagram/src/controller/auth_controller.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/notification/local_push_notification.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
@@ -9,6 +10,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class HomeController extends GetxController {
+  static HomeController get to => Get.find();
+
   RxList<Post> postList = <Post>[].obs;
   late Timer _timer;
 
@@ -17,6 +20,20 @@ class HomeController extends GetxController {
     super.onInit();
     loadFeedList();
     noti_timer();
+  }
+
+  bool checkResidence(Position cur) {
+    var user = AuthController.to.user.value;
+
+    var uid = user.uid;
+
+    var diff = NLatLng(double.parse(user.mapx!), double.parse(user.mapy!))
+        .distanceTo(NLatLng(cur.latitude, cur.longitude));
+
+    if (diff < 500)
+      return true;
+    else
+      return false;
   }
 
   bool checkEnoughFar(
@@ -48,7 +65,7 @@ class HomeController extends GetxController {
       pre10 = cur;
       cur = await Geolocator.getCurrentPosition();
 
-      if (checkEnoughFar(pre30, pre20, pre10, cur) /*&& 거주지 비교*/) {
+      if (!checkResidence(cur) && checkEnoughFar(pre30, pre20, pre10, cur)) {
         /*게시물 처리*/
         var feedList = await PostRepository.loadFeedList();
         double min_diff = 2e9;

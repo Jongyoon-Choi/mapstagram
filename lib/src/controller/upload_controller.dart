@@ -4,6 +4,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mapstagram/src/components/message_popup.dart';
 import 'package:mapstagram/src/controller/auth_controller.dart';
+import 'package:mapstagram/src/controller/home_controller.dart';
+import 'package:mapstagram/src/controller/mypage_controller.dart';
 import 'package:mapstagram/src/models/post.dart';
 import 'package:mapstagram/src/pages/upload/upload_description.dart';
 import 'package:mapstagram/src/repository/post_repository.dart';
@@ -140,6 +142,8 @@ class UploadController extends GetxController {
               rating: rating,
             );
             _submitPost(updatedPost);
+            HomeController.to.loadFeedList();
+            MypageController.to.loadData();
           }
         },
       );

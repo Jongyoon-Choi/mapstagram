@@ -115,7 +115,8 @@ class _MapSearchState extends State<MapSearch> {
           );
           final onMarkerInfoWindow = NInfoWindow.onMarker(
             id: marker.info.id,
-            text: "${place.placeTitle} ★${place.avgRating}(${place.postCount})",
+            text:
+                "${place.placeTitle} ★${place.avgRating!.toStringAsFixed(1)}(${place.postCount})",
           );
           controller.addOverlay(marker);
           marker.openInfoWindow(onMarkerInfoWindow);
