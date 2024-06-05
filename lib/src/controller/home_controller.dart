@@ -82,8 +82,9 @@ class HomeController extends GetxController {
         }
 
         LocalPushNotifications.showSimpleNotification(
-            title: "이곳에 가봐라",
-            body: recommand_post.placeTitle,
+            title:
+                "${recommand_post.placeTitle} ★${recommand_post.rating.toStringAsFixed(1)}",
+            body: "친구들이 다녀간 이 장소를 방문해주세요.",
             payload: "payload");
       }
     });
